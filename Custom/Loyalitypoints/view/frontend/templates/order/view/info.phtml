@@ -1,0 +1,12 @@
+<?php
+/** @var $block \Vendor\FrontendOrderView\Block\Order\View\Info */
+$order = $block->getOrder();
+$loyaltyPoints = $order->getData('loyalty_points');
+?>
+
+<?php if ($loyaltyPoints): ?>
+    <div class="order-loyalty-points">
+        <span class="label"><?= $block->escapeHtml(__('Loyalty Points')) ?>:</span>
+        <span class="value"><?= $block->escapeHtml($loyaltyPoints) ?></span>
+    </div>
+<?php endif; ?>

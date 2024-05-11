@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Custom_Loyalitypoints::css/source/_module.less" />
+    </head>
+    <body>
+        <referenceBlock name="order_info">
+            <block class="Custom\Loyalitypoints\Block\Order\View\Info" name="order.loyalty.points" template="Custom_Loyalitypoints::order/view/info.phtml" after="order_info_shipping_address"/>
+        </referenceBlock>
+    </body>
+</page>

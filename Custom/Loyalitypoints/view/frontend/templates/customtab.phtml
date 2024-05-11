@@ -1,0 +1,94 @@
+<?php
+/**
+ * @var \Custom\LoyalityPoints\ViewModel\LoyaltyPoints $viewModel
+ */
+$viewModel = $block->getData('view_model');
+$customerId = $viewModel->getCustomerId();
+$loyaltyPoints = $viewModel->getLoyaltyPoints($customerId);
+?>
+
+<?php if ($loyaltyPoints && $loyaltyPoints->getId()): ?>
+    <div class="block block-loyalty-points">
+        <div class="block-title">
+            <strong><?= __('Your Loyalty Points') ?></strong>
+        </div>
+        <div class="block-content">
+            <?php $points = $loyaltyPoints->getPoints(); ?>
+            <p>You have <?= $points ?> loyalty points.</p>
+            <?php if ($points > 0): ?>
+                <button id="convert-points-btn">Convert Points to Coupon</button>
+                <button id="share-points-btn">Share Points</button>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div id="convert-points-modal" style="display: none;">
+        <form id="convert-points-form" action="<?php echo $block->getUrl('customer/index/convertpointstocoupons'); ?>" method="post">
+            <label for="recipient-email">Recipient Email:</label><br>
+            <input type="email" id="convert-recipient-email" name="recipient_email" required><br>
+            <label for="convert-points">Points:</label><br>
+            <input type="number" id="convert-points" name="points" min="1" max="<?= $points ?>" required><br><br>
+            <button type="submit">Convert</button>
+        </form>
+    </div>
+
+    <div id="share-points-modal" style="display: none;">
+        <form id="share-points-form" action="<?php echo $block->getUrl('customer/index/sharepointscontroller'); ?>" method="post">
+            <label for="share-recipient-email">Recipient Email:</label><br>
+            <input type="email" id="share-recipient-email" name="recipient_email" required><br>
+            <label for="share-points">Points:</label><br>
+            <input type="number" id="share-points" name="points" min="1" max="<?= $points ?>" required><br><br>
+            <button type="submit">Share</button>
+        </form>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function ($, modal) {
+            var optionsConvert = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Convert Points to Coupon',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var optionsShare = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Share Points',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var popupConvert = modal(optionsConvert, $('#convert-points-modal'));
+            var popupShare = modal(optionsShare, $('#share-points-modal'));
+
+            $('#convert-points-btn').click(function() {
+                $('#convert-points-modal').modal('openModal');
+            });
+
+            $('#share-points-btn').click(function() {
+                $('#share-points-modal').modal('openModal');
+            });
+        });
+    </script>
+<?php else: ?>
+    <div class="message info empty">
+        <div><?= __('You have no loyalty points yet.') ?></div>
+    </div>
+<?php endif; ?>

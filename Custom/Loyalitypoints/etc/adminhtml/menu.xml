@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_Loyalitypoints::rewards_point" title="Rewards Point" module="Custom_Loyalitypoints" sortOrder="10" resource="Custom_Loyalitypoints::rewards_point" />
+        <add id="Custom_Loyalitypoints::all_rewards_points" title="All Rewards Points" module="Custom_Loyalitypoints" sortOrder="10" parent="Custom_Loyalitypoints::rewards_point" action="customer/rewards/index" resource="Custom_Loyalitypoints::all_rewards_points"/>
+    </menu>
+</config>

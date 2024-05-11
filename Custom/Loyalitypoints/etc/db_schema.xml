@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="custom_loyalty_points" resource="default" engine="innodb" comment="Loyalty Points Table">
+        <column xsi:type="int" name="loyalty_points_id" padding="10" unsigned="true" nullable="false" comment="Loyalty Points ID" identity="true"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" comment="Customer ID"/>
+        <column xsi:type="decimal" name="points" scale="2" precision="10" nullable="false" comment="Loyalty Points"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="loyalty_points_id"/>
+        </constraint>
+    </table>
+</schema>

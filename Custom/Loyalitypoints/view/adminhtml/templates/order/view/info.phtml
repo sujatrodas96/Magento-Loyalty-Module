@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $block \Magento\Sales\Block\Adminhtml\Order\View\Info
+ */
+$order = $block->getOrder();
+$loyaltyPoints = $order->getData('loyalty_points');
+?>
+<?= $block->getChildHtml('extra_customer_info') ?>
+<div class="order-loyalty-points">
+    <span class="label"><?= $block->escapeHtml(__('Loyalty Points')) ?>:</span>
+    <span class="value"><?= $block->escapeHtml($loyaltyPoints) ?></span>
+</div>
+<?= $block->getChildHtml('order_billing_address') ?>
+<?= $block->getChildHtml('order_shipping_address') ?>
+<?= $block->getChildHtml('order_additional_info') ?>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Custom\Loyalitypoints\Observer\AwardLoyaltyPoints">
+        <arguments>
+            <argument name="loyaltyPointsHelper" xsi:type="object">Custom\Loyalitypoints\Helper\Data</argument>
+            <argument name="orderRepository" xsi:type="object">Magento\Sales\Api\OrderRepositoryInterface</argument>
+            <argument name="orderResource" xsi:type="object">Magento\Sales\Model\ResourceModel\Order</argument>
+            <argument name="gridPool" xsi:type="object">Magento\Sales\Model\ResourceModel\GridPool</argument>
+        </arguments>
+    </type>
+</config>

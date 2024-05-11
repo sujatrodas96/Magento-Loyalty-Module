@@ -1,0 +1,33 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$orderCollection = $objectManager->create('Magento\Sales\Model\ResourceModel\Order\Collection');
+$customerId = $this->getRequest()->getParam('customer_id');
+
+$orderCollection->addFieldToFilter('customer_id', $customerId)
+    ->addFieldToSelect('created_at')
+    ->addFieldToSelect('loyalty_points')
+    ->setOrder('created_at', 'DESC');
+?>
+
+<div>
+    <?php if ($orderCollection->getSize() > 0): ?>
+        <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <th style="padding: 8px; text-align: left;">Order Date</th>
+                    <th style="padding: 8px; text-align: left;">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($orderCollection as $order): ?>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;"><?php echo $order->getCreatedAt(); ?></td>
+                        <td style="padding: 8px;"><?php echo $order->getLoyaltyPoints(); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No order history found.</p>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,45 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$loyaltyPointsCollection = $objectManager->create('Custom\Loyalitypoints\Model\ResourceModel\LoyaltyPoints\Collection');
+
+?>
+
+<div>
+    <?php if ($loyaltyPointsCollection->getSize() > 0): ?>
+        <table style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <th style="padding: 8px; text-align: left;">Customer ID</th>
+                    <th style="padding: 8px; text-align: left;">Name</th>
+                    <th style="padding: 8px; text-align: left;">Email</th>
+                    <th style="padding: 8px; text-align: left;">Points</th>
+                    <th style="padding: 8px; text-align: left;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($loyaltyPointsCollection as $loyaltyPoints): ?>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 8px;"><?php echo $loyaltyPoints->getCustomerId(); ?></td>
+                        <td style="padding: 8px;">
+                            <?php 
+                                // Load customer entity based on customer ID
+                                $customer = $objectManager->create('Magento\Customer\Model\Customer')->load($loyaltyPoints->getCustomerId());
+                                echo $customer->getName(); // Output customer name
+                            ?>
+                        </td>
+                        <td style="padding: 8px;">
+                            <?php 
+                                echo $customer->getEmail(); // Output customer email
+                            ?>
+                        </td>
+                        <td style="padding: 8px;"><?php echo $loyaltyPoints->getPoints(); ?></td>
+                        <td style="padding: 8px;"><a href="<?php echo $block->getUrl('customer/index/history', ['customer_id' => $loyaltyPoints->getCustomerId()]); ?>">Edit</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No loyalty points found.</p>
+    <?php endif; ?>
+</div>
+

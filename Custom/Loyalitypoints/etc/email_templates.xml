@@ -1,0 +1,4 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="Custom_Loyalitypoints_email_template" label="Points Share Notification" file="points_sharing_email_template.html" type="html" module="Custom_Loyalitypoints" area="frontend"/>
+    <template id="loyaltypoints_coupon_email_template" label="Loyalty Points Coupon Email Template" file="loyaltypoints_coupon_email_template.html" type="html" module="Custom_Loyalitypoints" area="frontend"/>
+</config>
